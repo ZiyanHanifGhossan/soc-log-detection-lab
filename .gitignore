@@ -1,0 +1,7 @@
+# Do not publish raw or normalized copies of the dataset until redistribution terms are confirmed.
+data/cowrie.json.*.anon
+data/cowrie_login_events.csv
+
+*.inspect.ndjson
+__pycache__/
+*.pyc
