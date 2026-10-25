@@ -2,7 +2,7 @@
 
 **Jenis latihan:** analisis log SOC / blue-team  
 **Tanggal:** 25 Oktober 2026  
-**Status:** dataset latihan; pemeriksaan Event ID 3 khusus sekitar 10:24 masih terbuka  
+**Status:** dataset latihan; query Event ID 3 untuk 10:24:30–10:26:00 selesai dan menghasilkan 0 event.  
 **Lingkungan:** Splunk Enterprise 10.6.1 lokal  
 **Index / sourcetype:** `soc_lab` / `sysmon_xml_local`
 
@@ -86,7 +86,7 @@ Ini proses berbeda, jadi jangan gabungkan dengan temuan A.
 
 Pencarian gabungan Event ID 3 dan 22 menampilkan permintaan DNS internal. Baris yang sempat terpotong adalah Event ID 22 dari `Microsoft.ActiveDirectory.WebServices.exe` PID 1516, untuk `win-dc-397.attackrange.local`. Hasilnya mencakup alamat internal `10.0.1.14` dan IPv6 lokal. Baris itu bukan koneksi keluar PowerShell.
 
-Pemeriksaan Event ID 3 saja untuk rentang 10:24:30–10:26:00 belum selesai. Karena itu kita belum dapat mengatakan apakah ada atau tidak ada koneksi jaringan yang terkait langsung dengan rangkaian encoded pada 10:24.
+Query Event ID 3 untuk rentang 10:24:30–10:26:00 selesai dan menghasilkan **0 event**. Query membatasi index dan sourcetype, mengambil Event ID dari XML, lalu memfilter waktu tersebut. Artinya, tidak ada catatan koneksi jaringan Sysmon Event ID 3 pada rentang itu di data yang sedang diindeks. Ini bukan bukti bahwa skrip pasti tidak berkomunikasi: koneksi bisa tidak tercatat atau berada di luar rentang. Delapan Event ID 3 yang terlihat pada hitungan seluruh dataset berada di waktu lain. DNS internal sekitar 10:25 yang terlihat pada Event ID 22 adalah aktivitas berbeda dan tidak dengan sendirinya membuktikan koneksi keluar.
 
 ## 8. Kesimpulan triase sementara
 
@@ -103,9 +103,9 @@ Pemeriksaan Event ID 3 saja untuk rentang 10:24:30–10:26:00 belum selesai. Kar
 
 ## 9. Apa yang masih perlu dilakukan
 
-1. Jalankan query Event ID 3 saja pada rentang 19 Januari 2021, 10:24:30–10:26:00. Lihat PID, Image, IP sumber/tujuan, port, dan Initiated.
-2. Jika tidak ada koneksi di rentang itu, catat hanya bahwa koneksi tidak tercatat di data yang tersedia; itu bukan bukti bahwa skrip tidak pernah berkomunikasi.
-3. Untuk mengetahui isi skrip, diperlukan PowerShell Script Block Logging (Event ID 4104), transkrip PowerShell, atau file input standar dari host.
+1. Cocokkan proses dari Event ID 1 dengan Event ID 22 pada rentang 10:24–10:26 menggunakan PID dan waktu. DNS internal yang terlihat perlu dicatat sebagai konteks, tetapi tidak membuktikan adanya koneksi keluar.
+2. Jangan mengaitkan koneksi PID 7244 sekitar 12:24 dengan rantai encoded 10:24; itu proses dan waktu yang berbeda.
+3. Untuk mengetahui isi skrip akhir, diperlukan PowerShell Script Block Logging (Event ID 4104), transkrip PowerShell, atau input standar dari host.
 4. Jangan unggah file log mentah atau Base64 panjang ke repo publik.
 
 ## 10. Istilah dasar
