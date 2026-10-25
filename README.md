@@ -65,7 +65,7 @@ Analisis hanya mencakup satu hari, tidak mempunyai event login berhasil, dan tid
 
 ## Project 2 — Analisis PowerShell ter-encode dengan Splunk
 
-Latihan investigasi SOC memakai log Sysmon simulasi dari Splunk Attack Data. Kita mengatur ingest, memvalidasi event, mencari `-EncodedCommand`, menelusuri parent process, dan menghubungkan DNS dengan koneksi jaringan. Dataset mentah dan payload Base64 tidak disalin ke repositori.
+Latihan investigasi SOC memakai log Sysmon simulasi dari Splunk Attack Data. Saya mengatur ingest, memvalidasi event, mencari `-EncodedCommand`, menelusuri parent process, dan menghubungkan DNS dengan koneksi jaringan. Dataset mentah dan payload Base64 tidak disalin ke repositori.
 
 - [Laporan dan panduan langkah demi langkah](projects/splunk-powershell-obfuscation/LAPORAN.md)
 - [Query Splunk](projects/splunk-powershell-obfuscation/splunk-queries.md)
