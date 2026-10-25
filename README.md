@@ -62,3 +62,12 @@ Dataset Salty Seagull berasal dari interaksi ke honeynet Cowrie. Alamat IP di fi
 - Makrakis, G. M., Pijpker, J., Hassing, R., Loves, R., & McCombie, S. (2025). Salty Seagull: A VSAT Honeynet to Follow the Bread Crumb of Attacks in Ship Networks. [arXiv:2508.11325](https://arxiv.org/abs/2508.11325).
 
 Analisis hanya mencakup satu hari, tidak mempunyai event login berhasil, dan tidak mengidentifikasi pelaku atau niatnya. Ketiadaan alert bukan bukti bahwa aktivitas aman; aturan ini hanya mencakup pola yang didefinisikan di atas.
+
+## Project 2 — Analisis PowerShell ter-encode dengan Splunk
+
+Latihan investigasi SOC memakai log Sysmon simulasi dari Splunk Attack Data. Kita mengatur ingest, memvalidasi event, mencari `-EncodedCommand`, menelusuri parent process, dan menghubungkan DNS dengan koneksi jaringan. Dataset mentah dan payload Base64 tidak disalin ke repositori.
+
+- [Laporan dan panduan langkah demi langkah](projects/splunk-powershell-obfuscation/LAPORAN.md)
+- [Query Splunk](projects/splunk-powershell-obfuscation/splunk-queries.md)
+- [Ringkasan proyek](projects/splunk-powershell-obfuscation/README.md)
+
