@@ -8,7 +8,7 @@
 
 ## 1. Ringkasan
 
-Kita sedang membuat **Project 2: deteksi dan investigasi obfuscated PowerShell dengan Splunk**. Jadi, kita melakukan analisis keamanan sekaligus menyusun dokumentasi proyek portofolio.
+Proyek ini saya rancang dan kerjakan sendiri: **Project 2: deteksi dan investigasi obfuscated PowerShell dengan Splunk**, sebagai analisis keamanan sekaligus dokumentasi portofolio.
 
 Temuan utama adalah rangkaian sekitar 10:24 pada 19 Januari 2021: `winrshost.exe → cmd.exe → powershell.exe` dengan `-ExecutionPolicy Unrestricted` dan `-EncodedCommand`. Setelah didekode sebagai teks, payload menunjukkan wrapper yang membaca skrip dari input standar. Isi input tersebut tidak ada di log yang tersedia, jadi perilaku akhir skrip belum bisa dipastikan.
 
@@ -22,7 +22,7 @@ Dalam Add Data, file dimasukkan sebagai file input dengan index `soc_lab`, host 
 
 Pencarian `stats count` menghasilkan **29.943 event**, sehingga ingest berhasil.
 
-## 3. Urutan proses yang kita lakukan
+## 3. Urutan proses yang saya lakukan
 
 | Langkah | Apa yang dilakukan | Tujuannya | Hasil |
 |---|---|---|---|
@@ -68,7 +68,7 @@ Pada Event ID 1, proses berjalan berantai dari `winrshost.exe` ke `cmd.exe` dan 
 
 Opsi itu bisa muncul pada otomasi sah. Kombinasi parent process jarak jauh, command shell, dan encoded command membuat rangkaian ini layak ditinjau.
 
-Payload yang didekode **bukan isi lengkap skrip akhir**. Ia menjalankan PowerShell kedua dengan wrapper. Wrapper membaca input standar, memisahkannya menjadi dua bagian pada empat karakter NUL, memasukkan bagian kedua ke `json_raw`, lalu menjalankan bagian pertama sebagai script block. Isi yang diberikan melalui input standar tidak terdapat pada command line atau log Sysmon yang kita punya. Perintah hanya dibaca sebagai teks; tidak dijalankan.
+Payload yang didekode **bukan isi lengkap skrip akhir**. Ia menjalankan PowerShell kedua dengan wrapper. Wrapper membaca input standar, memisahkannya menjadi dua bagian pada empat karakter NUL, memasukkan bagian kedua ke `json_raw`, lalu menjalankan bagian pertama sebagai script block. Isi yang diberikan melalui input standar tidak terdapat pada command line atau log Sysmon yang saya miliki. Perintah hanya dibaca sebagai teks; tidak dijalankan.
 
 ## 6. Temuan B — PID 7244 sekitar 12:16–12:24
 
